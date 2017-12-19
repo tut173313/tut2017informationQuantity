@@ -69,7 +69,7 @@ public class TestCase {
 	    value = myObject.estimation();
 	    System.out.println(">00 "+value);
 		
-		//---------------------------------------
+		//---add test case---
 		myObject.setTarget(" ".getBytes());
 	    value = myObject.estimation();
 	    System.out.println(">_ "+value);
