@@ -19,6 +19,10 @@ public class Frequencer implements FrequencerInterface{
     // Code to Test, *warning: This code  contains intentional problem*
     byte [] myTarget;
     byte [] mySpace;
+	public Frequencer(){
+		this.myTarget = "".getBytes();
+		this.mySpace  = "".getBytes();
+	}
     
 	public void setTarget(byte [] target) { myTarget = target;}
     
@@ -28,20 +32,30 @@ public class Frequencer implements FrequencerInterface{
 		int targetLength = myTarget.length;
 		int spaceLength = mySpace.length;
 		int count = 0;
+		if (spaceLength <= 0){
+			return -1;
+		}else if(targetLength <= 0){
+			return 0;
+		}
+		
+		//dbg
+		//System.out.println("space:"+this.mySpace+", length:"+spaceLength);
 		for(int start = 0; start < spaceLength; start++) { // Is it OK?
-			//開始位置をずらす
+			//offset start
 			boolean abort = false;
 			
 			//edit
 			for(int i = 0; i < targetLength && 0 < (spaceLength - start); i++) {
 								
 				//dbg
-				System.out.println(myTarget[i] + ":" + mySpace[start+i]);
+				//System.out.println(myTarget[i] + ":" + mySpace[start+i]);
 				
 				//dbg
-				System.out.println("i:"+ i + ", start:" + start);
-				
-				//1バイト単位で比較，一致しなければbreak,一致すれは継続
+				//System.out.println("i:"+ i + ", start:" + start);
+				if( (start+i) >= spaceLength){
+					abort = true;
+					break;
+				}
 				if(myTarget[i] != mySpace[start+i]) { 
 					abort = true;
 					break; 
@@ -55,9 +69,15 @@ public class Frequencer implements FrequencerInterface{
 	}
 
 	// I know that here is a potential problem in the declaration.
-	public int subByteFrequency(int start, int length) { 
-		// Not yet, but it is not currently used by anyone.
-		return -1;
+	public int subByteFrequency(int start,  int end) { 	// corresponding to substring of String for  byte[] ,
+		// It is not implement in class library because internal structure of byte[] requires copy.
+		byte [] result = new byte[end - start];
+		for(int i = 0; i<end - start; i++) { 
+			result[i] = this.mySpace[start + i]; 
+		};
+		setSpace(result);
+		int freq = frequency();
+		return freq;
 	}
 
 	public static void main(String[] args) {

@@ -37,17 +37,44 @@ public class TestCase {
 			
 			System.out.println("checking s4.b173313.Frequencer");
 			
-			String test = "test";
+			String test = "test test test";
 			String target = "test";
 			
 			myObject = new s4.b173313.Frequencer();
+			
+			freq = myObject.frequency();
+			System.out.print("target and space not set, frequency() returns: "+freq+" ");
+			if(-1 == freq) { 
+				System.out.println("OK"); 
+			
+			} else {
+				System.out.println("WRONG"); 
+			}
+			
 			myObject.setSpace(test.getBytes());
+			
+			freq = myObject.frequency();
+			System.out.print("set target only, frequency() returns: "+freq+" ");
+			if(0 == freq) { 
+				System.out.println("OK"); 
+			
+			} else {
+				System.out.println("WRONG"); 
+			}
 			myObject.setTarget(target.getBytes());
 			
 			freq = myObject.frequency();
 			System.out.print("\""+ target +"\" in \""+ test +"\" appears "+freq+" times. ");
+			if(3 == freq) { 
+				System.out.println("OK"); 
 			
-			if(4 == freq) { 
+			} else {
+				System.out.println("WRONG"); 
+			}
+			
+			int subfreq = myObject.subByteFrequency(5, 12);
+			System.out.print("\""+ target +"\" in \""+ test +"\"5~12 appears "+subfreq+" times. ");
+			if(1 == subfreq) { 
 				System.out.println("OK"); 
 			
 			} else {
