@@ -1,4 +1,4 @@
-package s4.b173313; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID. 
+package s4.b173313; // Please modify to s4.Bnnnnnn, where nnnnnn is your student ID.
 import java.lang.*;
 import s4.specification.*;
 
@@ -32,6 +32,7 @@ public interface InformationEstimatorInterface{
 public class TestCase {
     public static void main(String[] args) {
 		try {
+            /*
 			FrequencerInterface  myObject;
 			int freq;
 			
@@ -80,7 +81,16 @@ public class TestCase {
 			} else {
 				System.out.println("WRONG"); 
 			}
-		
+		*/
+            Frequencer frequencerObject;
+            frequencerObject = new Frequencer();
+            frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
+            frequencerObject.setTarget("H".getBytes());
+            int result = frequencerObject.frequency();
+            System.out.print("Freq = "+ result+" ");
+            if(4 == result) { System.out.println("OK"); }
+            else {System.out.println("WRONG"); }
+
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
