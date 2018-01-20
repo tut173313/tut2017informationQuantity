@@ -19,14 +19,57 @@ public class Frequencer implements FrequencerInterface{
     byte [] mySpace;
     boolean targetReady = false;
     boolean spaceReady = false;
-    
+		
     int [] suffixArray;
     //開始位置の値？
     //並び順は配列として保存？
-    
+        
     // The variable, "suffixArray" is the sorted array of all suffixes of mySpace.
     // Each suffix is expressed by a interger, which is the starting position in mySpace.
     // The following is the code to print the variable
+	
+	//ソート用------------------------------------------------------------------------------
+	private void swap(int m,int n)
+	{
+		int tmp = suffixArray[m];
+		suffixArray[m] = suffixArray[n];
+		suffixArray[n] = tmp;
+	}
+	//  ヒープの要素を沈める処理。suffixArray[start]から、suffixArray[end]までを要素とする。
+	private int downheap(int start,int end){
+		System.out.println("sort running...");
+		
+		int parent, child, r = 0;
+		child = end;    //  子ノードのスタート位置
+		//  末端の要素から、たどり、親要素よりも値が大きければ、入れ替える処理を繰り返す。
+		do{
+			//  親ノードの番号取得
+			parent = start + (child - start) / 2;
+			//  バイナリツリーの末端の最初が親よりも大きければ、入れ替える。
+			if(suffixCompare(child, parent) == -1){
+				swap(child,parent);
+				r = 1;
+			}
+			//  iをデクリメント
+			child--;
+		}while(parent > start);  //  子ノードが、startの位置を超えてしまったら、終了
+		return r;
+	}
+	 
+	//  ヒープソート
+	private void heap_sort()
+	{
+		System.out.println("sort starting...");
+		int i = 1;
+		
+		while(downheap(i,suffixArray.length-1) == 1){
+			System.out.println("sort running...");
+			i++;
+		}
+		
+	}
+	//ソート用ここまで-----------------------------------------------------------------------------
+
     private void printSuffixArray() {
         if(spaceReady) {
             for(int i=0; i< mySpace.length; i++) {
@@ -91,16 +134,18 @@ public class Frequencer implements FrequencerInterface{
         for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
         }
-        for(int i = 0; i < mySpace.length-1; i++){
-            for(int k = i+1; k < mySpace.length; k++){
-                if(suffixCompare(i,k)==1){
-                    temp = suffixArray[i];
-                    suffixArray[i] = suffixArray[k];
-                    suffixArray[k] = temp;
-                }
-            }
-        }
+		
+        // for(int i = 0; i < mySpace.length-1; i++){
+            // for(int j = i+1; j < mySpace.length; j++){
+                // if(suffixCompare(i,j)==1){
+                    // temp = suffixArray[i];
+                    // suffixArray[i] = suffixArray[j];
+                    // suffixArray[j] = temp;
+                // }
+            // }
+        // }
         
+		heap_sort();
         
         //String sb
         
