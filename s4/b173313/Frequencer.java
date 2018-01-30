@@ -2,6 +2,8 @@ package s4.b173313; // Please modify to s4.Bnnnnnn, where nnnnnn is your student
 import java.lang.*;
 import s4.specification.*;
 
+//8回11:21辺りの式
+
 /*
  interface FrequencerInterface {     // This interface provides the design for frequency counter.
  void setTarget(byte[]  target); // set the data to search.
@@ -35,39 +37,50 @@ public class Frequencer implements FrequencerInterface{
 		suffixArray[m] = suffixArray[n];
 		suffixArray[n] = tmp;
 	}
-	//  ヒープの要素を沈める処理。suffixArray[start]から、suffixArray[end]までを要素とする。
-	private int downheap(int start,int end){
-		System.out.println("sort running...");
+	
+	// 配列dのleftからrightまでの間のデータ列をクイックソートする
+    private void quick_sort(int[] d, int left, int right) {
+        if (left>=right) {
+            return;
+        }
 		
-		int parent, child, r = 0;
-		child = end;    //  子ノードのスタート位置
-		//  末端の要素から、たどり、親要素よりも値が大きければ、入れ替える処理を繰り返す。
-		do{
-			//  親ノードの番号取得
-			parent = start + (child - start) / 2;
-			//  バイナリツリーの末端の最初が親よりも大きければ、入れ替える。
-			if(suffixCompare(child, parent) == -1){
-				swap(child,parent);
-				r = 1;
-			}
-			//  iをデクリメント
-			child--;
-		}while(parent > start);  //  子ノードが、startの位置を超えてしまったら、終了
-		return r;
-	}
-	 
-	//  ヒープソート
-	private void heap_sort()
-	{
-		System.out.println("sort starting...");
-		int i = 1;
+		System.out.println("Sorting "+ left + " to " + right);
 		
-		while(downheap(i,suffixArray.length-1) == 1){
-			System.out.println("sort running...");
-			i++;
-		}
-		
-	}
+        int p = (left+right)/2;
+        int l = left; 
+		int r = right;
+        while(l<=r) {
+            //while(d[l] < p) { l++; }
+            //while(d[r] > p) { r--; }
+			
+			while(suffixCompare(l, p) == -1){ l++; }
+            while(suffixCompare(r, p) ==  1){ r--; }
+			
+            if (l<=r) {
+                //tmp = d[l]; d[l] = d[r]; d[r] = tmp;
+                swap(l,r);
+				l++; 
+				r--;
+            }
+        }
+        quick_sort(d, left, r);  // ピボットより左側をクイックソート
+        quick_sort(d, l, right); // ピボットより右側をクイックソート
+    }
+    // 配列内のデータ列を表示する
+    private void print_data(int[] d) {
+        for(int i = 0; i < d.length; i++) System.out.print(d[i] + " ");
+        System.out.println();
+    }
+	
+	/*
+    public static void main(String[] args) {
+        int[] data = {5, 10, 3, 7, 8, 1, 9, 2};
+        print_data(data);
+        quick_sort(data, 0, data.length-1);
+        print_data(data);
+    }
+	*/
+	
 	//ソート用ここまで-----------------------------------------------------------------------------
 
     private void printSuffixArray() {
@@ -84,6 +97,7 @@ public class Frequencer implements FrequencerInterface{
     }
     
     private int suffixCompare(int i, int j) {
+		//System.out.println("comparing "+ i + " : " + j);
         //　２つのsuffixを辞書順で比較
         // comparing two suffixes by dictionary order.
         //　iとjはsuffix_iとsuffix_jを意味する
@@ -145,7 +159,7 @@ public class Frequencer implements FrequencerInterface{
             // }
         // }
         
-		heap_sort();
+		quick_sort(suffixArray, 0, suffixArray.length - 1);
         
         //String sb
         
