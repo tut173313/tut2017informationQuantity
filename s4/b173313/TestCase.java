@@ -32,69 +32,21 @@ public interface InformationEstimatorInterface{
 public class TestCase {
     public static void main(String[] args) {
 		try {
-            /*
+            
 			FrequencerInterface  myObject;
 			int freq;
-			
 			System.out.println("checking s4.b173313.Frequencer");
-			
-			String test = "test test test";
-			String target = "test";
-			
 			myObject = new s4.b173313.Frequencer();
-			
+			myObject.setSpace("Hi Ho Hi Ho".getBytes());
+			myObject.setTarget("H".getBytes());
 			freq = myObject.frequency();
-			System.out.print("target and space not set, frequency() returns: "+freq+" ");
-			if(-1 == freq) { 
-				System.out.println("OK"); 
+			System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+			if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 			
-			} else {
-				System.out.println("WRONG"); 
-			}
-			
-			myObject.setSpace(test.getBytes());
-			
-			freq = myObject.frequency();
-			System.out.print("set target only, frequency() returns: "+freq+" ");
-			if(0 == freq) { 
-				System.out.println("OK"); 
-			
-			} else {
-				System.out.println("WRONG"); 
-			}
-			myObject.setTarget(target.getBytes());
-			
-			freq = myObject.frequency();
-			System.out.print("\""+ target +"\" in \""+ test +"\" appears "+freq+" times. ");
-			if(3 == freq) { 
-				System.out.println("OK"); 
-			
-			} else {
-				System.out.println("WRONG"); 
-			}
-			
-			int subfreq = myObject.subByteFrequency(5, 12);
-			System.out.print("\""+ target +"\" in \""+ test +"\"5~12 appears "+subfreq+" times. ");
-			if(1 == subfreq) { 
-				System.out.println("OK"); 
-			
-			} else {
-				System.out.println("WRONG"); 
-			}
-		*/
-            Frequencer frequencerObject;
-            frequencerObject = new Frequencer();
-            frequencerObject.setSpace("Hi Ho Hi Ho".getBytes());
-            frequencerObject.setTarget("H".getBytes());
-            int result = frequencerObject.frequency();
-            System.out.print("Freq = "+ result+" ");
-            if(4 == result) { System.out.println("OK"); }
-            else {System.out.println("WRONG"); }
-
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
-/*
+
 		try {
 			InformationEstimatorInterface myObject;
 			double value;
@@ -119,14 +71,14 @@ public class TestCase {
 			System.out.println(">00 "+value);
 			
 			//---add test case---
-			myObject.setTarget(" ".getBytes());
+			myObject.setTarget("abc".getBytes());
 			value = myObject.estimation();
-			System.out.println(">_ "+value);
+			System.out.println(">abc "+value);
 		
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
-		*/
+		
 
     }
 }	    
