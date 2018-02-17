@@ -156,7 +156,7 @@ public class Frequencer implements FrequencerInterface{
 		quick_sort(suffixArray, 0, suffixArray.length - 1);
         
         for(int i = 0; i < mySpace.length; i++){
-            byte[] bytetmp = new byte[30];
+            byte[] bytetmp = new byte[mySpace.length+1];
             int b = 0;
 			
             for(int k = suffixArray[i]; k < mySpace.length; k++){
@@ -164,9 +164,10 @@ public class Frequencer implements FrequencerInterface{
                 b++;
             }
 			
-            //System.out.println(i + ":" + suffixArray[i] + ", " +new String(bytetmp));
+            System.out.println(i + ":" + suffixArray[i] + ", " +new String(bytetmp));
             //System.out.println(new String(bytetmp));
         }
+		System.out.println("setSpace end");
 
         //ソートは実装されていない
         // Sorting is not implmented yet.
@@ -204,7 +205,7 @@ public class Frequencer implements FrequencerInterface{
     }
     
     private int targetCompare(int i, int start, int end) {
-        
+		
         int si = mySpace.length - suffixArray[i];
         int sj = end -start;
         int s = mySpace.length;
@@ -239,11 +240,41 @@ public class Frequencer implements FrequencerInterface{
     }
     
     private int subByteStartIndex(int start, int end) {
+		/*
         for(int i = 0; i < mySpace.length; i++){
             if(targetCompare(i,start,end) == 0){
                 return i;
             }
         }
+		*/
+		//System.out.println("dbg1");
+        int l = 0; 
+		int r = mySpace.length-1;
+		int p = ( l + r ) / 2;
+		int flag = 0;
+		int c = 0;
+		//System.out.println("dbg2");
+		while(flag == 0){
+			//System.out.println("l:"+l+"  r:"+r+"  p:"+p);
+			p = ( l + r ) / 2;
+			//System.out.println("dbg3");
+			c = targetCompare(p, start, end);
+			//System.out.println("dbg4");
+			if (c ==  -1){l = p+1;}
+			if (c ==   1){r = p-1;}
+			if (c ==   0){
+				//System.out.println("dbg5 p="+p);
+				if(p == 0){
+					return 0;
+				}
+				r = p-1;
+				if(targetCompare(p-1, start, end) == -1){
+					flag = 1;
+					return p;
+				}
+			}
+		}
+		
         // It returns the index of the first suffix which is equal or greater than subBytes;
         // not implemented yet;
         // For "Ho", it will return 5 for "Hi Ho Hi Ho".
@@ -252,11 +283,41 @@ public class Frequencer implements FrequencerInterface{
     }
     
     private int subByteEndIndex(int start, int end) {
+		/*
         for(int i = 0; i < mySpace.length; i++){
             if(targetCompare(i,start,end) == 1){
                 return i;
             }
         }
+		*/
+		
+		int l = 0; 
+		int r = mySpace.length-1;
+		int p = ( l + r ) / 2;
+		int flag = 0;
+		int c = 0;
+		
+		while(flag == 0){
+			//System.out.println("l:"+l+"  r:"+r+"  p:"+p);
+			p = ( l + r ) / 2;
+			c = targetCompare(p, start, end);
+			if (c ==  -1){l = p+1;}
+			if (c ==   1){r = p-1;}
+			if (c ==   0){
+				//System.out.println("dbg6 p="+p);
+				if(p == 0){
+					return 0;
+				}
+				l = p+1;
+				if(p == mySpace.length-1){
+					flag = 1;
+					return p+1;
+				}else if(targetCompare(p+1, start, end) == 1){
+					flag = 1;
+					return p+1;
+				}
+			}
+		}
         // It returns the next index of the first suffix which is greater than subBytes;
         // not implemented yet
         // For "Ho", it will return 7 for "Hi Ho Hi Ho".
@@ -265,10 +326,11 @@ public class Frequencer implements FrequencerInterface{
     }
     
     public int subByteFrequency(int start, int end) {
+		System.out.println("start subByteFreq");
         // This method could be defined as follows though it is slow.
          int spaceLength = mySpace.length;
          int count = 0;
-         for(int offset = 0; offset< spaceLength - (end - start); offset++) {
+         for(int offset = 0; offset < spaceLength-(end - start); offset++) {
              boolean abort = false;
              for(int i = 0; i< (end - start); i++) {
                  if(myTarget[start+i] != mySpace[offset+i]) {
@@ -276,17 +338,19 @@ public class Frequencer implements FrequencerInterface{
                      break;
                  }
              }
-             if(abort == false) {
+            if(abort == false) {
                  count++;
              }
          }
+		System.out.println("start searchST start="+start+" end="+end);
         int first = subByteStartIndex(start,end);
-        int last1 = subByteEndIndex(start, end);
+		System.out.println("start searchEN start="+start+" end="+end);
+        int last = subByteEndIndex(start, end);
         // inspection code
          //for(int k=start;k<end;k++) { System.out.write(myTarget[k]); }
          //System.out.printf(": first=%d last1=%d\n", first, last1);
          //
-        return last1 - first;
+        return last - first;
     }
     
     public void setTarget(byte [] target) {

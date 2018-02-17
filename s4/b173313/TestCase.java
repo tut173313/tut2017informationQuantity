@@ -71,15 +71,13 @@ public class TestCase {
 			System.out.println(">00 "+value);
 			
 			//---add test case---
-			myObject.setTarget("abc".getBytes());
+			myObject.setTarget("".getBytes());
 			value = myObject.estimation();
-			System.out.println(">abc "+value);
+			System.out.println(">not set "+value);
 		
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
 		}
-		
-
     }
 }	    
 	    
