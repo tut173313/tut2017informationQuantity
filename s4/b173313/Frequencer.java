@@ -154,7 +154,7 @@ public class Frequencer implements FrequencerInterface{
         }
 		
 		quick_sort(suffixArray, 0, suffixArray.length - 1);
-        
+        /*
         for(int i = 0; i < mySpace.length; i++){
             byte[] bytetmp = new byte[mySpace.length+1];
             int b = 0;
@@ -168,7 +168,7 @@ public class Frequencer implements FrequencerInterface{
             //System.out.println(new String(bytetmp));
         }
 		System.out.println("setSpace end");
-
+		*/
         //ソートは実装されていない
         // Sorting is not implmented yet.
         
@@ -326,7 +326,7 @@ public class Frequencer implements FrequencerInterface{
     }
     
     public int subByteFrequency(int start, int end) {
-		System.out.println("start subByteFreq");
+		//System.out.println("start subByteFreq");
         // This method could be defined as follows though it is slow.
          int spaceLength = mySpace.length;
          int count = 0;
@@ -342,9 +342,9 @@ public class Frequencer implements FrequencerInterface{
                  count++;
              }
          }
-		System.out.println("start searchST start="+start+" end="+end);
+		//System.out.println("start searchST start="+start+" end="+end);
         int first = subByteStartIndex(start,end);
-		System.out.println("start searchEN start="+start+" end="+end);
+		//System.out.println("start searchEN start="+start+" end="+end);
         int last = subByteEndIndex(start, end);
         // inspection code
          //for(int k=start;k<end;k++) { System.out.write(myTarget[k]); }
