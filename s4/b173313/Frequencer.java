@@ -154,6 +154,7 @@ public class Frequencer implements FrequencerInterface{
         }
 		
 		quick_sort(suffixArray, 0, suffixArray.length - 1);
+		//デバッグ出力
         /*
         for(int i = 0; i < mySpace.length; i++){
             byte[] bytetmp = new byte[mySpace.length+1];
@@ -354,7 +355,8 @@ public class Frequencer implements FrequencerInterface{
     }
     
     public void setTarget(byte [] target) {
-        myTarget = target; if(myTarget.length>0) targetReady = true;
+        myTarget = target; 
+		if(myTarget.length>0) targetReady = true;
     }
     
     public int frequency() {

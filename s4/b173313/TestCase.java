@@ -33,7 +33,9 @@ public class TestCase {
     public static void main(String[] args) {
 		try {
             
-			FrequencerInterface  myObject;
+			FrequencerInterface myObject;
+			FrequencerInterface myObject2;
+			FrequencerInterface myObject3;
 			int freq;
 			System.out.println("checking s4.b173313.Frequencer");
 			myObject = new s4.b173313.Frequencer();
@@ -42,6 +44,20 @@ public class TestCase {
 			freq = myObject.frequency();
 			System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
 			if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+			//add testcase
+			myObject2 = new s4.b173313.Frequencer();
+			myObject2.setSpace("".getBytes());
+			myObject2.setTarget("H".getBytes());
+			freq = myObject2.frequency();
+			System.out.print("\"H\" in \" \" appears "+freq+" times. ");
+			if(0 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+			
+			myObject3 = new s4.b173313.Frequencer();
+			myObject3.setSpace("Hi Ho Hi Ho".getBytes());
+			myObject3.setTarget("".getBytes());
+			freq = myObject3.frequency();
+			System.out.print("\" \" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+			if(-1 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
 			
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
@@ -73,7 +89,12 @@ public class TestCase {
 			//---add test case---
 			myObject.setTarget("".getBytes());
 			value = myObject.estimation();
-			System.out.println(">not set "+value);
+			System.out.println(">target length is zero "+value);
+			
+			myObject.setSpace("".getBytes());
+			myObject.setTarget("0".getBytes());
+			value = myObject.estimation();
+			System.out.println(">space length is zero "+value);
 		
 		}catch(Exception e) {
 			System.out.println("Exception occurred: STOP");
